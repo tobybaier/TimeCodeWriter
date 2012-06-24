@@ -26,11 +26,11 @@ public class TimeCodeWriter {
                 System.out.println("Type a line with only 'e' in it and hit <enter> to stop tracking.");
                 FileWriter fileWriter = new FileWriter(fileName);
                 out = new BufferedWriter(fileWriter);
-                log(0);
+                log(0, "");
                 start = System.currentTimeMillis();
                 // now log time code for each enter, until user says "end"
                 while ((input = buffer.readLine()) != null)    {
-                    log(System.currentTimeMillis() - start);
+                    log(System.currentTimeMillis() - start, input);
                     if (input.equals("e")) {
                         System.out.println("\n\nGreat, you're done! Now add your notes to "+fileName);
                         System.out.println("Thank you for using TimeCodeWriter! Listen to einschlafen-podcast.de to relax after your hard work!");
@@ -45,7 +45,7 @@ public class TimeCodeWriter {
         }
     }
 
-    private static void log(long current) throws IOException {
+    private static void log(long current, String input) throws IOException {
         String f2 = String.format("%02d:%02d:%02d.%03d",
                 TimeUnit.MILLISECONDS.toHours(current),
                 TimeUnit.MILLISECONDS.toMinutes(current),
@@ -54,6 +54,6 @@ public class TimeCodeWriter {
                 current % 1000
         );
         System.out.print(f2 + " ");
-        out.write(f2+" \n");
+        out.write(f2+" "+input+"\n");
     }
 }
