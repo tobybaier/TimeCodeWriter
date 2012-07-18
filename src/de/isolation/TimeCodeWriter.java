@@ -48,9 +48,8 @@ public class TimeCodeWriter {
     private static void log(long current, String input) throws IOException {
         String f2 = String.format("%02d:%02d:%02d.%03d",
                 TimeUnit.MILLISECONDS.toHours(current),
-                TimeUnit.MILLISECONDS.toMinutes(current),
-                TimeUnit.MILLISECONDS.toSeconds(current) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(current)),
+                TimeUnit.MILLISECONDS.toMinutes(current) % 60,
+                TimeUnit.MILLISECONDS.toSeconds(current) % 60,
                 current % 1000
         );
         System.out.print(f2 + " ");
