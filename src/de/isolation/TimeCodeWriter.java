@@ -20,7 +20,7 @@ public class TimeCodeWriter {
         try {
             System.out.println("Welcome to TimeCodeWriter, hit <enter> to start tracking.");
             // first, wait for time tracking to start
-            while ((input = buffer.readLine()) != null)    {
+            while ((buffer.readLine()) != null)    {
                 String fileName = "TimeCodes_" +
                         new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss").format(new Date()) + ".txt";
                 System.out.println("Time tracking starts now, writing to "+fileName);
