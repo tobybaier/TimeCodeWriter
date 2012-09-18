@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 public class TimeCodeWriter {
     static long start;
     static BufferedWriter out;
+    static String lastTime = "00:00:00.000";
+
     public static void main(String args[]) {
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
         String input;
@@ -26,7 +28,7 @@ public class TimeCodeWriter {
                 System.out.println("Type a line with only 'e' in it and hit <enter> to stop tracking.");
                 FileWriter fileWriter = new FileWriter(fileName);
                 out = new BufferedWriter(fileWriter);
-                log(0, "");
+                System.out.print(lastTime + " ");
                 start = System.currentTimeMillis();
                 // now log time code for each enter, until user says "end"
                 while ((input = buffer.readLine()) != null)    {
@@ -46,13 +48,14 @@ public class TimeCodeWriter {
     }
 
     private static void log(long current, String input) throws IOException {
-        String f2 = String.format("%02d:%02d:%02d.%03d",
+
+        out.write(lastTime+" "+input + "\n");
+        lastTime = String.format("%02d:%02d:%02d.%03d",
                 TimeUnit.MILLISECONDS.toHours(current),
                 TimeUnit.MILLISECONDS.toMinutes(current) % 60,
                 TimeUnit.MILLISECONDS.toSeconds(current) % 60,
                 current % 1000
         );
-        System.out.print(f2 + " ");
-        out.write(f2+" "+input+"\n");
+        System.out.print(lastTime + " ");
     }
 }
